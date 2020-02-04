@@ -3,8 +3,9 @@ from openpyxl import load_workbook
 
 class ExpressCreating:
 
-    def __init__(self):
-        self.wb = load_workbook(filename='новые сотрудники январь.xlsx', data_only=True)
+    def __init__(self, filename):
+        self.filename = filename
+        self.wb = load_workbook(filename=self.filename, data_only=True)
         self.data = self.wb['Sheet1']
 
     def transliterate(self, name):
@@ -27,7 +28,7 @@ class ExpressCreating:
         return name
 
 
-    def split_names(self):
+    def personal_data(self):
         people = []
         for i in self.data.values:
             person = {}
@@ -38,15 +39,9 @@ class ExpressCreating:
                 person['middlename'] = f'{name[2]} {name[3]}'
             except IndexError:
                 person['middlename'] = name[2]
+            person['email'] = self.transliterate(f"{person['name'][0].lower()}{person['surname'].lower()}@texnomart.uz")
             people.append(person)
         return people
-
-    def create_email(self):
-        emails = []
-        for i in self.split_names():
-            email = self.transliterate(f"{i['name'][0].lower()}{i['surname'].lower()}@texnomart.uz")
-            emails.append(email)
-        return emails
 
 
 
