@@ -40,10 +40,6 @@ class ExpressCreating:
             except IndexError:
                 person['middlename'] = name[2]
             person['email'] = self.transliterate(f"{person['name'][0].lower()}{person['surname'].lower()}@texnomart.uz")
+            person['position'] = i[2]
             people.append(person)
         return people
-
-
-
-
-
